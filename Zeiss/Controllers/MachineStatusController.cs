@@ -17,9 +17,12 @@ namespace Zeiss.Controllers
     {
         private readonly string _webSocketUrl;
 
-        public MachineStatusController(IConfiguration configuration)
+        private readonly ICacheHelper _cacheHelper;
+
+        public MachineStatusController(IConfiguration configuration, ICacheHelper cacheHelper)
         {
             _webSocketUrl = configuration.GetSection("WebSocket").Get<WebSocketSettings>().Url;
+            _cacheHelper = cacheHelper;
         }
 
         [HttpPost]
@@ -54,7 +57,7 @@ namespace Zeiss.Controllers
 
             try
             {
-                response = (ReponseMessage)MemoryCacheHelper.GetCacheValue("machine_status");
+                response = (ReponseMessage)_cacheHelper.GetCacheValue("machine_status");
             }
             catch (Exception ex)
             {

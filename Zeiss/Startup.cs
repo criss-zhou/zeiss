@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Zeiss.Helper;
 using Zeiss.Hubs;
 
 namespace Zeiss
@@ -25,6 +26,7 @@ namespace Zeiss
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Zeiss", Version = "v1" });
             });
+            services.AddSingleton<ICacheHelper, MemoryCacheHelper>();
             services.AddSignalR();
         }
 

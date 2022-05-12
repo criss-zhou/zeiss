@@ -3,10 +3,10 @@ using System;
 
 namespace Zeiss.Helper
 {
-    public static class MemoryCacheHelper
+    public class MemoryCacheHelper : ICacheHelper
     {
-        private static readonly MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
-        public static object GetCacheValue(string key)//获取值
+        private readonly MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+        public object GetCacheValue(string key)//获取值
         {
             if (key != null && cache.TryGetValue(key, out object val))
             {
@@ -17,7 +17,7 @@ namespace Zeiss.Helper
                 return default;
             }
         }
-        public static void SetChacheValue(string key, object value)
+        public void SetChacheValue(string key, object value)
         {
             if (key != null)
             {
